@@ -1,6 +1,7 @@
 import argparse
+from config import path
 
-from text import lang, KEYS
+from data.text import lang, KEYS
 
 parser:argparse.ArgumentParser = argparse.ArgumentParser(description=lang[KEYS.EXE_DESCRIPTION])
 
@@ -23,7 +24,7 @@ parser.add_argument(
 parser.add_argument(
   '--server-path',
   help = lang[KEYS.ARGS_HELP_SERVER_PATH],
-  default = ''
+  default = f'{path.local}\\Servers'
 )
 
 # Java Version
