@@ -75,4 +75,7 @@ def unlock() -> None:
   if os.path.isfile(path.lock_file):
     os.remove(path.lock_file)
     
-    
+def run_thread_locker() -> None:
+  reserve_thread = LockThread()
+  reserve_thread.deamon = True
+  reserve_thread.start()

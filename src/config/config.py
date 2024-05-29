@@ -1,5 +1,7 @@
 from config.args import args
 
 class config:
-  server_path: str = args.server_path
+  java_version: str  = args.java_version
+  server_version: str = args.server_version
+  server_type: str['paper'] = args.server_type
   

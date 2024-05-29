@@ -74,7 +74,7 @@ def get_java_path() -> str | None:
     
   return None
 
-def install_java(version: str = '17') -> str:
+def install_java(version: str) -> str:
   """Install the targeted version of java
 
   Args:

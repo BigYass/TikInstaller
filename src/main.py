@@ -49,7 +49,7 @@ def install() -> None:
   if not util.have_java(): # Install Java
     print('Java not found, installing java...')
     if util.is_admin():
-      p = util.install_java()
+      p = util.install_java(config.java_version)
       print('Java installed at ' + p)
     else:
       t = ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
@@ -61,9 +61,7 @@ def install() -> None:
   # Install Minecraft Server (TODO)
 
 def init() -> None:
-  lock.reserve_thread = lock.LockThread()
-  lock.reserve_thread.deamon = True
-  lock.reserve_thread.start()
+  lock.run_thread_locker()
 
 def close() -> None:
   pass
@@ -73,8 +71,6 @@ def main() -> None:
   
   print_title()
   install()
-  
-  time.sleep(20)
   
   close()
 

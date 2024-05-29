@@ -7,7 +7,7 @@ parser:argparse.ArgumentParser = argparse.ArgumentParser(description=lang[KEYS.E
 
 # Server Type
 parser.add_argument(
-  '--server-type', 
+  '--server-type', '-t',
   choices=['paper', 'fabric', 'forge'],
   help = lang[KEYS.ARGS_HELP_SERVER_TYPE],
   default='paper'
@@ -20,18 +20,11 @@ parser.add_argument(
   default='latest'
 )
 
-# Server Path
-parser.add_argument(
-  '--server-path',
-  help = lang[KEYS.ARGS_HELP_SERVER_PATH],
-  default = f'{path.local}\\Servers'
-)
-
 # Java Version
 parser.add_argument(
   '--java_version',
   help = lang[KEYS.ARGS_HELP_JAVA_VERSION],
-  default = 'latest'
+  default = '22'
 )
 
 args:argparse.Namespace = parser.parse_args()
