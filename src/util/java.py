@@ -4,6 +4,8 @@ import jdk
 import ctypes
 import winreg as reg
 
+from data.text import lang, KEYS
+
 def have_java() -> bool:
   """Detects if java is installed by running java -version
 
@@ -27,7 +29,7 @@ def _add_java_path(java_home:str) -> None:
   
   # Check if java_home directory exists
   if not os.path.isdir(bin_path):
-    print(bin_path, "Does not exists or is not a directory...")
+    print(lang[KEYS.LOG_ERR_NOT_DIR].format(bin_path))
     return 
   
   os.environ['JAVA_HOME'] = java_home
@@ -45,18 +47,18 @@ def _add_java_path(java_home:str) -> None:
     new_path = current_path + ";" + bin_path if current_path else bin_path
     with reg.OpenKey(reg.HKEY_CURRENT_USER, r'Environment', 0, reg.KEY_WRITE) as key:
       reg.SetValueEx(key, 'PATH', 0, reg.REG_EXPAND_SZ, new_path)
-      print('Added', bin_path, 'to PATH')
+      print(lang[KEYS.LOG_INS_JAVA_ADDED_PATH].format(bin_path))
   else:
-    print(bin_path, 'already in PATH')
+    print(lang[KEYS.LOG_INS_JAVA_ALREADY_IN_PATH].format(bin_path))
     
-  print('Setting JAVA_HOME...')
+  print(lang[KEYS.LOG_INS_JAVA_ADDED_PATH])
   # Add JAVA_HOME to registry
   try:
     with reg.OpenKey(reg.HKEY_CURRENT_USER, r'Environment', 0, reg.KEY_WRITE) as key:
       reg.SetValueEx(key, 'JAVA_HOME', 0, reg.REG_EXPAND_SZ, java_home)
-      print('JAVA_HOME set to', java_home)
+      print(lang[KEYS.LOG_INS_JAVA_HOME_SET].format(java_home))
   except Exception as e:
-    print('Error writing JAVA_HOME to registry:', e)
+    print(lang[KEYS.LOG_INS_ERR_JAVA_HOME].format(e))
     
   os.environ.update()
 
@@ -85,18 +87,8 @@ def install_java(version: str) -> str:
   """
   java_path = jdk.install(version)
   
-  print('Adding java to PATH...')
+  print(lang[KEYS.LOG_INS_JAVA_ADDING_PATH])
   _add_java_path(java_path)
   
   return java_path
- 
-def is_admin() -> bool:
-  """Checks if is launched as admin
 
-  Returns:
-      bool: Is admin
-  """
-  try:
-    return ctypes.windll.shell32.IsUserAnAdmin()
-  except:
-    return False

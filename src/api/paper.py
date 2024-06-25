@@ -166,10 +166,11 @@ async def get_builds_group(family: str, project:str = 'paper') -> VersionFamilyB
   
   return VersionFamilyBuildsResponse(r.json())
   
-async def get_latest_version_url() -> str:
-  p = await get_project()
+async def get_latest_download_url(version: str | None = None, project: str = 'paper') -> str:
+  if version.lower() == 'latest':
+    version = None
   
-  ver = p.versions[-1]
+  ver = version or (await get_project()).versions[-1]
   
   b = await get_builds(ver)
   

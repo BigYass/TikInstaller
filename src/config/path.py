@@ -6,3 +6,5 @@ local = path.join(path.expandvars(r'%APPDATA%'), name)
 servers = path.join(local, 'Servers')
 
 lock_file = path.join(local, f'{name}.lock')
+
+save_file = path.join(local, f'{name}_save.json')

@@ -6,7 +6,7 @@ from api import paper
 
 async def test_paper_api() -> None:
   print('Getting Paper projects...')
-  t = await paper.get_latest_version_url()
+  t = await paper.get_latest_download_url()
   
   print('Link : ' + t)
    

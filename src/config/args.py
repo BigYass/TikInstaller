@@ -24,7 +24,7 @@ parser.add_argument(
 parser.add_argument(
   '--java_version',
   help = lang[KEYS.ARGS_HELP_JAVA_VERSION],
-  default = '22'
+  default = '17'
 )
 
 args:argparse.Namespace = parser.parse_args()
